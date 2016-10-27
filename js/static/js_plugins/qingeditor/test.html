@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>Qing Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="./style.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="../../jq/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="./editor-all.js"></script>
+</head>
+<body>
+
+<form action="" name="form1" method="post">
+    <textarea id="Qing_input" name="content"></textarea>
+    <button type="submit">提交</button>
+</form>
+
+
+<script>
+    //下面的参数可以自己设置
+    new Qing.editor.edit('myEditor',{
+        id:'Qing_input',
+        //输入框宽度单位px
+        width:1000,
+        //输入框高度单位px
+        height:200,
+        cssclass:'te',
+        controlclass:'tecontrol',
+        rowclass:'teheader',
+        dividerclass:'tedivider',
+        //显示或隐藏功能
+        controls:['bold','italic','underline','strikethrough','|','subscript','superscript','|',
+                  'orderedlist','unorderedlist','|','outdent','indent','|','leftalign',
+                  'centeralign','rightalign','blockjustify','|','unformat','|','undo','redo','n',
+                  'font','size','style','|','image','hr','link','unlink','|','cut','copy','paste','print'],
+        footer:true,
+        fonts:['隶书','幼圆','黑体','Verdana','Arial','Georgia','Trebuchet MS'],
+        xhtml:true,
+        cssfile:'style.css',
+        bodyid:'editor',
+        footerclass:'tefooter',
+        toggle:{text:'source',activetext:'wysiwyg',cssclass:'toggle'},
+        resize:{cssclass:'resize'}
+    });
+
+$('form').on('submit', function(event) {
+    myEditor.post();/* 给要提交的表单加上myEditor.post();否则将接收不到编辑器的数据，切记。 */
+});
+</script>
+</body>
+</html>

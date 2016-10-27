@@ -1,0 +1,5 @@
+@charset "UTF-8";
+
+.bannerPaginatio{position: absolute;z-index: 9;text-align: right;}
+.bannerPaginatio .swiper-pagination-bullet{width:6px;height:6px;}
+.bannerPaginatio .swiper-pagination-bullet-active{background-color: #fff;}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="full-screen" content="yes">
+	<title>H5 应用开发</title>
+	<link rel="stylesheet" href="./css/normalize.css">
+	<link rel="stylesheet" href="./css/frame.css">
+	<link rel="stylesheet" href="./css/style.css">
+<!--[if lt IE 9]>
+<script src="./js/static/js/html5.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="tw4Container">
+	<div class="header" id="header"></div>
+	<div class="swiper-container" id="tw4_pages">
+        <div class="swiper-wrapper">
+            <div class="pageItem swiper-slide" data-title="主页" data-classname="home" data-icon="./images/nav_icon_home.png" data-iconhover="./images/nav_icon_home_hover.png">
+<!-- Home start -->
+				<!-- banner start -->
+            	<div class="swiper-container" id="banner">
+				  	<div class="swiper-wrapper">
+					    <div class="swiper-slide"><img src="./images/upload/001.jpg" alt=""></div>
+					    <div class="swiper-slide"><img src="./images/upload/002.jpg" alt=""></div>
+					    <div class="swiper-slide"><img src="./images/upload/003.jpg" alt=""></div>
+				  	</div>
+                    <div class="bannerPaginatio"></div>
+				</div>
+				<!-- //banner end -->
+
+				<a href="#" onepage="title:'首页',type:2,content:'pages/main.html',moreBtn:false">单页测试</a>
+				<hr><a href="#" onepage="title:'嘿嘿',content:'http://www.huimintong.cc'">单页测试2</a>
+				<hr><a href="#" onepage="title:'嘿嘿',content:'.pageItem'">单页测试3</a>
+<!-- //Home end -->
+            </div>
+            <div class="pageItem swiper-slide" data-title="公告" data-classname="msg" data-icon="./images/nav_icon_msg.png" data-iconhover="./images/nav_icon_msg_hover.png">
+<!-- Msg start -->
+            	Slide 2
+<!-- //Msg end -->
+            </div>
+            <div class="pageItem swiper-slide" data-title="搜索" data-classname="search" data-icon="./images/nav_icon_search.png" data-iconhover="./images/nav_icon_search_hover.png">
+<!-- Search start -->
+            	Slide 3
+<!-- //Search end -->
+            </div>
+            <div class="pageItem swiper-slide" data-title="联系我们" data-classname="contact" data-icon="./images/nav_icon_contact.png" data-iconhover="./images/nav_icon_contact_hover.png">
+<!-- Contact start -->
+            	Slide 4
+<!-- //Contact end -->
+            </div>
+        </div>
+		<div class="tw4PagesBg" data-swiper-parallax="-20%" data-swiper-parallax-duration="1600"></div>
+    </div>
+    <div class="pagePagination" id="page_pagination"></div>
+</div>
+<script src="./js/static/js/sea.js"></script>
+<script src="./js/static/js/seajs-css.js"></script>
+<script>
+	// 简单配置
+	seajs.config({
+		base: "./js/",
+		paths: {
+			'm': 'sea-modules/'
+		},
+		alias: {
+			"jquery": "static/jq/jquery-1.11.3.min",
+			"swiper": "static/js/swiper.min",
+			"swiper-css": "static/css/swiper.min.css"
+		}
+	});
+	// 加载入口模块
+	seajs.use(['main', 'm/myswiper'], function(main, myswiper){
+		window.MAIN = main.init();
+
+		//banner
+		myswiper.done(function(){
+			new Swiper('#banner', {
+	        	pagination: '.bannerPaginatio',
+				autoHeight: 'auto',
+				autoplay : 3000,
+			});
+		});
+	});
+</script>
+</body>
+</html>
