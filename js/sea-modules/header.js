@@ -10,9 +10,8 @@ define(function(require, exports, module){
         	title: '标题',
         	homeTitle: '主页',
         	menuUrl: '',
-        	moreList: [
-        		['首页', '#'],
-        	]
+            moreListTitle: '',//左侧列表标题
+            moreListContent: '',//左侧列表Html
         };
         this.options = $.extend({}, DEFAULTS, options);
 	    this.allOptions = ['home','logo','title','menu','more'];
@@ -57,7 +56,7 @@ define(function(require, exports, module){
 
     //更多
     exports.more = function(){
-    	return '<span class="animated fadeInRight item right btnMore"></span>';
+    	return '<span class="animated fadeInRight item right btnMore" morelist="title:\''+ this.options.moreListTitle +'\',content:\''+ this.options.moreListContent +'\'"></span>';
     };
 
     //事件

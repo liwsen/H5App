@@ -5,7 +5,7 @@ define(function(require, exports, module){
 
     exports.init = function(options) {
         var DEFAULTS = {
-            elem: $('.tw4Container'),
+            elem: $('#tw4_container'),
         };
         this.options = $.extend({}, DEFAULTS, options);
         if(this.options.elem.length){

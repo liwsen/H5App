@@ -7,12 +7,11 @@ define(function(require, exports, module){
 
     exports.init = function(options) {
         var DEFAULTS = {
-        	initialSlide: 0,
+        	initialSlide: 0,//初始化slide
         };
         this.options = $.extend({}, DEFAULTS, options);
         
-        this.headerOptionsType = 0;
-        this.swiperEffect().headerOptions(this.headerOptionsType);
+        this.swiperEffect().headerOptions(this.options.initialSlide).moreList();
         ONEPAGE.event();
         return this;
     };
@@ -23,13 +22,17 @@ define(function(require, exports, module){
 		var $pages = $('#tw4_pages').find('.pageItem');
 		var paginationClassName = 'paginationItem';
 		var swiperResize = function(swiper){
-			var $items = $('#page_pagination').find('.'+ paginationClassName);
+			var $items = $('.tw4PagePagination').find('.'+ paginationClassName);
     		$items.css({width: (100/$items.length) + '%'});
 		};
 
         myswiper.done(function(){
         	swiper = new Swiper('#tw4_pages', {
 		        pagination: '#page_pagination',
+                wrapperClass: 'tw4PageWrapper',
+                slideClass : 'pageItem',
+                slideActiveClass : 'pageActive',
+                bulletActiveClass : 'paginationActive',
 		        paginationClickable: true,
 				paginationBulletRender: function (index, className) {
 					var myclass = $pages.eq(index).data('classname')||index;
@@ -38,10 +41,9 @@ define(function(require, exports, module){
 					return '<div class="item_'+ myclass +' '+ paginationClassName +' '+ className +'"><span>' + $pages.eq(index).data('title') + '</span><img class="defIcon" src="'+ icon +'"><img class="hoverIcon" src="'+ iconhover +'"></div>';
 				},
 				onInit: swiperResize,
-				// observer:true,
-				// observeParents:true,
+				observer:true,
 				onTransitionEnd: function(swiper){
-					if(my.headerOptionsType !== swiper.activeIndex){
+					if(typeof my.headerOptionsType === 'undefined' || my.headerOptionsType !== swiper.activeIndex){
 						my.headerOptionsType = swiper.activeIndex;
 						my.headerOptions(swiper.activeIndex);
 					}
@@ -60,18 +62,37 @@ define(function(require, exports, module){
 
     //头部配置
     exports.headerOptions = function(type){
-    	if(typeof type === 'undefined' || type === 0){
-    		HEAD.init({elem: $header, title: '主页标题', options: 'logo,menu'});
-    	//公告头部
-    	}else if(type === 1){
-    		HEAD.init({elem: $header, title: '公告通知', options: 'title,menu,home'});
-    	//搜索头部
-    	}else if(type === 2){
-    		HEAD.init({elem: $header, title: '搜索', options: 'title,more,home'});
-    	//联系我们
-    	}else if(type === 3){
-    		HEAD.init({elem: $header, title: '联系我们', options: 'title,home,more'});
-    	}
+        type = typeof type === 'undefined' ? this.options.initialSlide : type;
+        if(type === 0){
+            HEAD.init({elem: $header, title: '主页标题', options: 'logo,menu'});
+        //公告头部
+        }else if(type === 1){
+            HEAD.init({elem: $header, title: '公告通知', options: 'title,menu,home'});
+        //搜索头部
+        }else if(type === 2){
+            HEAD.init({elem: $header, title: '搜索', options: 'title,more,home'});
+        //联系我们
+        }else if(type === 3){
+            HEAD.init({elem: $header, title: '联系我们', options: 'title,home,more', moreListTitle: '更多列表', moreListContent: '更多列表内容'});
+        }
+        return this;
+    }
+
+    //左侧滑动列表
+    exports.moreList = function(){
+        $('body').off('click', '*[morelist]').on('click', '*[morelist]', function(event) {
+            event.preventDefault();
+            var str = $(this).attr('morelist');
+            try{
+                var obj = (new Function("return {" + str +'}'))();
+                require.async(['m/morelist'], function(moreList) {
+                    moreList.init(obj);
+                });
+            }
+            catch(err){
+                console.log(err);
+            }
+        });
     	return this;
     }
 

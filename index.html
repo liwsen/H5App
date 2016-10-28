@@ -13,11 +13,11 @@
 <![endif]-->
 </head>
 <body>
-<div class="tw4Container">
+<div class="tw4Container" id="tw4_container">
 	<div class="header" id="header"></div>
 	<div class="swiper-container" id="tw4_pages">
-        <div class="swiper-wrapper">
-            <div class="pageItem swiper-slide" data-title="主页" data-classname="home" data-icon="./images/nav_icon_home.png" data-iconhover="./images/nav_icon_home_hover.png">
+        <div class="tw4PageWrapper swiper-wrapper">
+            <div class="pageItem" data-title="主页" data-classname="home" data-icon="./images/nav_icon_home.png" data-iconhover="./images/nav_icon_home_hover.png">
 <!-- Home start -->
 				<!-- banner start -->
             	<div class="swiper-container" id="banner">
@@ -30,22 +30,23 @@
 				</div>
 				<!-- //banner end -->
 
-				<a href="#" onepage="title:'首页',type:2,content:'pages/main.html',moreBtn:false">单页测试</a>
+				<hr><a href="#" onepage="title:'首页',type:2,content:'pages/main.html',moreBtn:false">单页测试</a>
 				<hr><a href="#" onepage="title:'嘿嘿',content:'http://www.huimintong.cc',fullScreen:true">单页测试2</a>
-				<hr><a href="#" onepage="title:'嘿嘿',content:'.pageItem'">单页测试3</a>
+				<hr><a href="#" onepage="title:'嘿嘿',content:'.pageItem',moreListTitle:'更多列表',moreListContent:'更多列表内容'">单页测试3</a>
+				<hr><a href="#" onepage="title:'首页',type:2,content:'http://www.huimintong.cc',moreBtn:false,fullScreen:true">单页测试4</a>
 <!-- //Home end -->
             </div>
-            <div class="pageItem swiper-slide" data-title="公告" data-classname="msg" data-icon="./images/nav_icon_msg.png" data-iconhover="./images/nav_icon_msg_hover.png">
+            <div class="pageItem" data-title="公告" data-classname="msg" data-icon="./images/nav_icon_msg.png" data-iconhover="./images/nav_icon_msg_hover.png">
 <!-- Msg start -->
             	Slide 2
 <!-- //Msg end -->
             </div>
-            <div class="pageItem swiper-slide" data-title="搜索" data-classname="search" data-icon="./images/nav_icon_search.png" data-iconhover="./images/nav_icon_search_hover.png">
+            <div class="pageItem" data-title="搜索" data-classname="search" data-icon="./images/nav_icon_search.png" data-iconhover="./images/nav_icon_search_hover.png">
 <!-- Search start -->
             	Slide 3
 <!-- //Search end -->
             </div>
-            <div class="pageItem swiper-slide" data-title="联系我们" data-classname="contact" data-icon="./images/nav_icon_contact.png" data-iconhover="./images/nav_icon_contact_hover.png">
+            <div class="pageItem" data-title="联系我们" data-classname="contact" data-icon="./images/nav_icon_contact.png" data-iconhover="./images/nav_icon_contact_hover.png">
 <!-- Contact start -->
             	Slide 4
 <!-- //Contact end -->
@@ -53,7 +54,7 @@
         </div>
 		<div class="tw4PagesBg" data-swiper-parallax="-20%" data-swiper-parallax-duration="1600"></div>
     </div>
-    <div class="pagePagination" id="page_pagination"></div>
+    <div class="tw4PagePagination" id="page_pagination"></div>
 </div>
 <script src="./js/static/js/sea.js"></script>
 <script src="./js/static/js/seajs-css.js"></script>
@@ -79,7 +80,7 @@
 			new Swiper('#banner', {
 	        	pagination: '.bannerPaginatio',
 				autoHeight: 'auto',
-				autoplay : 3000,
+				autoplay : 5000,
 			});
 		});
 	});

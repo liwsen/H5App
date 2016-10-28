@@ -5,16 +5,15 @@ define(function(require, exports, module){
 
     exports.init = function(options) {
         var DEFAULTS = {
-            elem: $('.tw4Container'),
+            elem: $('#tw4_container'),
             title: '标题',
             type: 1,//1为Html或jquery元素（./#开头），2为Iframe
             content: '',//html内容或者iframe连接地址
             show: true,
             backBtn: true,
             moreBtn: true,
-            moreList: [
-                ['首页', '#'],
-            ],
+            moreListTitle: '',//左侧列表标题
+            moreListContent: '',//左侧列表Html
             fullScreen: false,
         };
         this.options = $.extend({}, DEFAULTS, options);
@@ -45,7 +44,7 @@ define(function(require, exports, module){
             html.push('<span class="item left btnBack"></span>');
         }
         if(my.options.moreBtn){
-            html.push('<span class="item right btnMore"></span>');
+            html.push('<span class="item right btnMore" morelist="title:\''+ this.options.moreListTitle +'\',content:\''+ this.options.moreListContent +'\'"></span>');
         }
         html.push('<span class="item title">'+ my.options.title +'</span>');
         html.push('</div>');
@@ -71,11 +70,11 @@ define(function(require, exports, module){
             loader.init();
             if($iframe[0].attachEvent){
                 $iframe[0].attachEvent("onload", function(){
-                    loader.close();
+                    loader.hide();
                 });
             }else{
                 $iframe[0].onload = function(){
-                    loader.close();
+                    loader.hide();
                 };
             }
         }
@@ -87,8 +86,8 @@ define(function(require, exports, module){
         $onepage.addClass('show');
         return this;
     };
-    //关闭
-    exports.close = function(){
+    //隐藏
+    exports.hide = function(){
         $onepage.removeClass('show');
         return this;
     };
@@ -113,19 +112,19 @@ define(function(require, exports, module){
                     if(!reg.test(window.location.href)){
                         document.getElementById('onepage_iframe').contentWindow.history.back();
                     }else{
-                        my.close();
+                        my.hide();
                     }
                 }
                 catch(err){
-                    my.close();
+                    my.hide();
                 }
             }else if(my.options.type === 1){
-                my.close();
+                my.hide();
             }
         })
         .on('click', '.quit', function(event) {
             event.preventDefault();
-            my.close();
+            my.hide();
         });
         return this;
     };
