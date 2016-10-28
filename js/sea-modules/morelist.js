@@ -12,8 +12,8 @@ define(function(require, exports, module){
         if(!!this.options.content){
             this.setHtml();
             //事件
-            $('body').one('click', this.hide);
-            $list.off().on('click', function(event) {
+            $list.off().on('click', this.hide)
+            .off('click', '.wrapper').on('click', '.wrapper', function(event) {
                 event.stopPropagation();//阻止冒泡
             });
         }
@@ -28,6 +28,7 @@ define(function(require, exports, module){
             $list = $('<div id="tw4_more_list"></div>');
             $list.appendTo($('body'));
         }
+        html.push('<div class="wrapper">');
         //头部
         if(!!this.options.title){
             html.push('<div class="moreBlockHeader">'+ this.options.title +'</div>');
@@ -39,6 +40,7 @@ define(function(require, exports, module){
             content = $(this.options.content)[0].outerHTML;
         }
         html.push('<div class="moreBlockContent '+ hasClass +'">'+ content +'</div>');
+        html.push('</div>');
         $list.html(html.join(''));
         setTimeout(this.show,200);
         return this;
