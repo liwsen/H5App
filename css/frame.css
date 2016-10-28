@@ -75,6 +75,15 @@ ol.noneStyle,
 	        transition: all .25s ease;
 }
 #tw4_onepage.show{left:0;right:0;}
+#tw4_onepage.fullScreen{padding-top:0;}
+#tw4_onepage.fullScreen .op_header{top:-4rem;}
+#tw4_onepage.fullScreen.show .quit{display:block;}
+
+#tw4_onepage .quit{width:3.6rem;height:3.6rem;border:1px solid #000;border-color:rgba(0,0,0,.5);border-radius: 50%;background:#fff url(../images/quit.png) no-repeat center center;background-color:rgba(255,255,255,.3);position: fixed;right:3%;bottom: 12%;z-index: 99;display:none;
+	-webkit-background-size: 55%;
+			background-size: 55%;
+}
+
 #tw4_onepage .op_header{background-color: #FF552E;height:4rem;position: absolute;top:0;left:0;right:0;}
 #tw4_onepage .op_header .item{height:100%;padding:0 .8rem;font:1.4rem/4rem 'Microsoft Yahei';color:#fff;position: absolute;top:0;z-index: 2;}
 #tw4_onepage .op_header .item.left{left:0;}
@@ -110,6 +119,7 @@ ol.noneStyle,
 		-webkit-background-size:2.8rem;
 				background-size:2.8rem;
 	}
+	#tw4_onepage .quit{width:3rem;height:3rem;}
 	#tw4_onepage .op_header .item.btnBack{
 		-webkit-background-size:2.2rem 1.5rem;
 				background-size:2.2rem 1.5rem;
@@ -145,6 +155,7 @@ ol.noneStyle,
 		-webkit-background-size:2.2rem;
 				background-size:2.2rem;
 	}
+	#tw4_onepage .quit{width:2.4rem;height:2.4rem;}
 	#tw4_onepage .op_header .item.btnBack{width: 2.7rem;
 		-webkit-background-size:1.6rem 1.1rem;
 				background-size:1.6rem 1.1rem;

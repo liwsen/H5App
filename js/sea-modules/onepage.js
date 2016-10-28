@@ -15,6 +15,7 @@ define(function(require, exports, module){
             moreList: [
                 ['首页', '#'],
             ],
+            fullScreen: false,
         };
         this.options = $.extend({}, DEFAULTS, options);
         if(this.options.elem.length){
@@ -30,6 +31,13 @@ define(function(require, exports, module){
         if($onepage.length === 0){
             $onepage = $('<div id="tw4_onepage"></div>');
             $onepage.appendTo(my.options.elem);
+        }
+        //全屏
+        if(my.options.fullScreen){
+            $onepage.addClass('fullScreen');
+            html.push('<div class="quit"></div>');
+        }else{
+            $onepage.removeClass('fullScreen');
         }
         //头部
         html.push('<div class="op_header" id="op_header">');
@@ -56,9 +64,7 @@ define(function(require, exports, module){
         html.push('</div>');
         $onepage.html(html.join(''));
         //是否显示
-        if(my.options.show){
-            $onepage.addClass('show');
-        }
+        my.options.show && my.show();
         //loader
         $iframe = $('#onepage_iframe');
         if($iframe.length){
@@ -90,7 +96,7 @@ define(function(require, exports, module){
     exports.back = function(){
         var my = this;
         $onepage.off().on('click', '.btnBack', function(event) {
-        event.preventDefault();
+            event.preventDefault();
             if(my.options.type === 2){
                 try{
                     var $iframe = document.getElementById('onepage_iframe');
@@ -107,15 +113,19 @@ define(function(require, exports, module){
                     if(!reg.test(window.location.href)){
                         document.getElementById('onepage_iframe').contentWindow.history.back();
                     }else{
-                        $onepage.removeClass('show');
+                        my.close();
                     }
                 }
                 catch(err){
-                    $onepage.removeClass('show');
+                    my.close();
                 }
             }else if(my.options.type === 1){
-                $onepage.removeClass('show');
+                my.close();
             }
+        })
+        .on('click', '.quit', function(event) {
+            event.preventDefault();
+            my.close();
         });
         return this;
     };
