@@ -30,10 +30,18 @@
 				</div>
 				<!-- //banner end -->
 
-				<hr><a href="#" onepage="title:'首页',type:2,content:'pages/main.html',moreBtn:false">单页测试</a>
-				<hr><a href="#" onepage="title:'嘿嘿',content:'http://www.huimintong.cc',fullScreen:true">单页测试2</a>
-				<hr><a href="#" onepage="title:'嘿嘿',content:'.pageItem',moreListTitle:'更多列表',moreListContent:'更多列表内容'">单页测试3</a>
-				<hr><a href="#" onepage="title:'首页',type:2,content:'http://www.huimintong.cc',moreBtn:false,fullScreen:true">单页测试4</a>
+				<hr><a href="#" onepage="title:'Main页面',type:2,content:'pages/main.html',moreBtn:false">Main 页面</a>
+				<hr><a href="#" onepage="title:'文本单页',content:'这里是文本',moreListTitle:'列表标题',moreListContent:'列表内容'">文本单页和More下拉菜单</a>
+				<hr><a href="#" onepage="title:'点右侧按钮试试',content:'.testContent',moreListTitle:'指定元素列表',moreListContent:'.testMoreList'">指定元素内容和More下拉菜单</a>
+					<div class="testContent hide">我是隐藏内容，专门测试指定元素内容的</div>
+					<div class="testMoreList hide">
+						<ul>
+							<li><a href="#" onepage="title:'测试1',type:2,content:'pages/main.html',moreBtn:false">测试1</a></li>
+							<li><a href="#" onepage="title:'测试2',content:'测试2',moreBtn:false">测试2</a></li>
+							<li><a href="#" onepage="title:'测试3',type:2,content:'http://m.meitu.com/',moreBtn:false">测试3</a></li>
+						</ul>
+					</div>
+				<hr><a href="#" onepage="type:2,content:'http://m.jd.com',moreBtn:false,fullScreen:true">全屏远程连接测试</a>
 <!-- //Home end -->
             </div>
             <div class="pageItem" data-title="公告" data-classname="msg" data-icon="./images/nav_icon_msg.png" data-iconhover="./images/nav_icon_msg_hover.png">

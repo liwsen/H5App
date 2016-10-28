@@ -12,10 +12,8 @@ define(function(require, exports, module){
         if(!!this.options.content){
             this.setHtml();
             //事件
-            $list.off().on('click', this.hide)
-            .off('click', '.wrapper').on('click', '.wrapper', function(event) {
-                event.stopPropagation();//阻止冒泡
-            });
+            $list.off('click', '.moreListBg').on('click', '.moreListBg', this.hide)
+            .off('click', '*[onepage]').on('click', '*[onepage]', this.hide);
         }
         return this;
     };
@@ -28,6 +26,7 @@ define(function(require, exports, module){
             $list = $('<div id="tw4_more_list"></div>');
             $list.appendTo($('body'));
         }
+        html.push('<div class="moreListBg"></div>');
         html.push('<div class="wrapper">');
         //头部
         if(!!this.options.title){

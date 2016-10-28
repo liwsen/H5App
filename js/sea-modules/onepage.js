@@ -134,6 +134,7 @@ define(function(require, exports, module){
         var my = this;
         $('body').off('click', '*[onepage]').on('click', '*[onepage]', function(event) {
             event.preventDefault();
+            console.log(123);
             var str = $(this).attr('onepage');
             try{
                 var obj = (new Function("return {" + str +'}'))();
