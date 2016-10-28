@@ -23,8 +23,8 @@ define(function(require, exports, module){
         $loader.html('<span class="_loader center"></div>');
         return this;
     };
-    //关闭
-    exports.close = function() {
+    //隐藏
+    exports.hide = function() {
         $loader.removeClass('show');
         return this;
     };
