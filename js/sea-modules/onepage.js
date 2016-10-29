@@ -9,12 +9,13 @@ define(function(require, exports, module){
             title: '标题',
             type: 1,//1为Html或jquery元素（./#开头），2为Iframe
             content: '',//html内容或者iframe连接地址
-            show: true,
-            backBtn: true,
-            moreBtn: true,
+            show: true,//初始化时是否直接显示
+            backBtn: true,//返回按钮是否显示
+            moreBtn: true,//更多按钮是否显示
             moreListTitle: '',//左侧列表标题
             moreListContent: '',//左侧列表Html
             fullScreen: false,
+            customHeader: '',//自定义头部，该项不为空，title,moreBtn,moreListTitle,moreListContent无效
         };
         this.options = $.extend({}, DEFAULTS, options);
         if(this.options.elem.length){
@@ -42,11 +43,21 @@ define(function(require, exports, module){
         html.push('<div class="op_header" id="op_header">');
         if(my.options.backBtn){
             html.push('<span class="item left btnBack"></span>');
+            $onepage.addClass('hasBack');
         }
-        if(my.options.moreBtn){
-            html.push('<span class="item right btnMore" morelist="title:\''+ this.options.moreListTitle +'\',content:\''+ this.options.moreListContent +'\'"></span>');
+        if(!!my.options.customHeader){
+            if(/^[\.|#]\w+$/.test(my.options.customHeader) && $(my.options.customHeader).length){
+                html.push($(my.options.customHeader)[0].outerHTML);
+            }else{
+                html.push(my.options.customHeader);
+            }
+        }else{
+            if(my.options.moreBtn){
+                html.push('<span class="item right btnMore" morelist="title:\''+ my.options.moreListTitle +'\',content:\''+ my.options.moreListContent +'\'"></span>');
+                $onepage.addClass('hasMore');
+            }
+            html.push('<span class="item title">'+ my.options.title +'</span>');
         }
-        html.push('<span class="item title">'+ my.options.title +'</span>');
         html.push('</div>');
         //内容
         if(my.options.type === 2){
@@ -61,19 +72,19 @@ define(function(require, exports, module){
             }
         }
         html.push('</div>');
-        $onepage.html(html.join(''));
+        $onepage.html(html.join('')).find('.hide').removeClass('hide');
         //是否显示
         my.options.show && my.show();
         //loader
-        $iframe = $('#onepage_iframe');
-        if($iframe.length){
+        my.iframe = $('#onepage_iframe');
+        if(my.iframe.length){
             loader.init();
-            if($iframe[0].attachEvent){
-                $iframe[0].attachEvent("onload", function(){
+            if(my.iframe[0].attachEvent){
+                my.iframe[0].attachEvent("onload", function(){
                     loader.hide();
                 });
             }else{
-                $iframe[0].onload = function(){
+                my.iframe[0].onload = function(){
                     loader.hide();
                 };
             }
@@ -98,9 +109,8 @@ define(function(require, exports, module){
             event.preventDefault();
             if(my.options.type === 2){
                 try{
-                    var $iframe = document.getElementById('onepage_iframe');
-                    var primitiveSrc = $.trim($iframe.getAttribute('src'));
-                    var nowSrc = $.trim($iframe.contentWindow.location.href);
+                    var primitiveSrc = $.trim(my.iframe[0].getAttribute('src'));
+                    var nowSrc = $.trim(my.iframe[0].contentWindow.location.href);
                     var rule = function(str){
                         return str.replace(/^http[s]*:\/\//i, '').replace(/\/$/, '').replace(/\/$/, '');
                     }
@@ -117,6 +127,7 @@ define(function(require, exports, module){
                 }
                 catch(err){
                     my.hide();
+                    console.log(err);
                 }
             }else if(my.options.type === 1){
                 my.hide();
@@ -134,7 +145,6 @@ define(function(require, exports, module){
         var my = this;
         $('body').off('click', '*[onepage]').on('click', '*[onepage]', function(event) {
             event.preventDefault();
-            console.log(123);
             var str = $(this).attr('onepage');
             try{
                 var obj = (new Function("return {" + str +'}'))();

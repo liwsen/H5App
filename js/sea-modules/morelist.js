@@ -40,7 +40,7 @@ define(function(require, exports, module){
         }
         html.push('<div class="moreBlockContent '+ hasClass +'">'+ content +'</div>');
         html.push('</div>');
-        $list.html(html.join(''));
+        $list.html(html.join('')).find('.hide').removeClass('hide');
         setTimeout(this.show,200);
         return this;
     };

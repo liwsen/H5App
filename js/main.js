@@ -7,7 +7,7 @@ define(function(require, exports, module){
 
     exports.init = function(options) {
         var DEFAULTS = {
-        	initialSlide: 0,//初始化slide
+            initialSlide: 0,//初始化slide
         };
         this.options = $.extend({}, DEFAULTS, options);
         
@@ -43,8 +43,8 @@ define(function(require, exports, module){
 				onInit: swiperResize,
 				observer:true,
 				onTransitionEnd: function(swiper){
-					if(typeof my.headerOptionsType === 'undefined' || my.headerOptionsType !== swiper.activeIndex){
-						my.headerOptionsType = swiper.activeIndex;
+					if(typeof my.activeSlide === 'undefined' || my.activeSlide !== swiper.activeIndex){
+						my.activeSlide = swiper.activeIndex;
 						my.headerOptions(swiper.activeIndex);
 					}
 				},
@@ -64,13 +64,13 @@ define(function(require, exports, module){
     exports.headerOptions = function(type){
         type = typeof type === 'undefined' ? this.options.initialSlide : type;
         if(type === 0){
-            HEAD.init({elem: $header, title: '主页标题', options: 'logo,menu'});
+            HEAD.init({elem: $header, title: '主页标题', options: 'logo,menu', menuTitle: '百度', menuUrl: 'http://www.baidu.com/'});
         //公告头部
         }else if(type === 1){
             HEAD.init({elem: $header, title: '公告通知', options: 'title,menu,home'});
         //搜索头部
         }else if(type === 2){
-            HEAD.init({elem: $header, title: '搜索', options: 'title,more,home'});
+            HEAD.init({elem: $header, customHeader: '.henderSearch'});
         //联系我们
         }else if(type === 3){
             HEAD.init({elem: $header, title: '联系我们', options: 'title,home,more', moreListTitle: '更多列表', moreListContent: '更多列表内容'});

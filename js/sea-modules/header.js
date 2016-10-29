@@ -8,28 +8,40 @@ define(function(require, exports, module){
         	body: '#tw4_pages .pageItem.swiper-slide-active',
         	options: 'home,menu',//this.allOptions
         	title: '标题',
-        	homeTitle: '主页',
+            menuTitle: '',
         	menuUrl: '',
             moreListTitle: '',//左侧列表标题
             moreListContent: '',//左侧列表Html
+            customHeader: '',//自定义头部，该项不为空，options无效
         };
         this.options = $.extend({}, DEFAULTS, options);
 	    this.allOptions = ['home','logo','title','menu','more'];
 
 	    var headHtml = '';
         if(!!this.options.elem && this.options.elem.length){
-        	var lists = this.options.options.split(',');
-        	for (var i = 0; i < lists.length; i++) {
-        		if($.inArray('logo', lists) !== -1 && $.inArray('title', lists) !== -1){
-        			if('title' === lists[i]){
-        				continue;
-        			}
-        		}
-        		if($.inArray(lists[i], this.allOptions) !== -1 && this.hasOwnProperty(lists[i])){
-        			headHtml += this[lists[i]]();
-        		}
-        	}
-        	this.options.elem.html(headHtml);
+            var lists = this.options.options.split(',');
+            if(!!this.options.customHeader){
+                // if($.inArray('home', lists) !== -1){
+                //     headHtml += this.home();
+                // }
+                if(/^[\.|#]\w+$/.test(this.options.customHeader) && $(this.options.customHeader).length){
+                    headHtml += $(this.options.customHeader)[0].outerHTML;
+                }else{
+                    headHtml += this.options.customHeader;
+                }
+            }else{
+                for (var i = 0; i < lists.length; i++) {
+                    if($.inArray('logo', lists) !== -1 && $.inArray('title', lists) !== -1){
+                        if('title' === lists[i]){
+                            continue;
+                        }
+                    }
+                    if($.inArray(lists[i], this.allOptions) !== -1 && this.hasOwnProperty(lists[i])){
+                        headHtml += this[lists[i]]();
+                    }
+                }
+            }
+        	this.options.elem.html(headHtml).find('.hide').removeClass('hide');
 	        this.event();
         }
     };
@@ -46,12 +58,13 @@ define(function(require, exports, module){
 
     //主页
     exports.home = function(){
-    	return '<span class="animated fadeInLeft item left btnHome">'+ this.options.homeTitle +'</span>';
+    	return '<span class="animated fadeInLeft item left btnHome"></span>';
     };
 
     //列表
     exports.menu = function(){
-    	return '<span class="animated fadeInRight item right btnMenu"></span>';
+        var menuTitle = this.options.menuTitle || this.options.title;
+    	return '<span class="animated fadeInRight item right btnMenu" onepage="title:\''+ menuTitle +'\',type:2,content:\''+ this.options.menuUrl +'\'"></span>';
     };
 
     //更多
@@ -63,16 +76,16 @@ define(function(require, exports, module){
     exports.event = function(){
     	var my = this;
     	//返回顶部
-    	this.options.elem.off().on('click', '.title', function(event) {
+    	this.options.elem.off('click', '.title').on('click', '.title', function(event) {
     		event.preventDefault();
     		$(my.options.body).animate({scrollTop: '0px'}, 600);
     	})
-    	//返回上一步
-    	.on('click', '.btnHome', function(event) {
-    		event.preventDefault();
-    		var name = $(my.options.body).parent().find(':first-child').data('classname');
-    		$('#page_pagination').find('.item_'+ name).trigger('click');
-    	});
+        //返回上一步
+        .off('click', '.btnHome').on('click', '.btnHome', function(event) {
+            event.preventDefault();
+            var initialSlide = TW4MAIN.options.initialSlide || 0;
+            $('#page_pagination').find('.paginationItem').eq(initialSlide).trigger('click');
+        });
     	return this;
     };
 

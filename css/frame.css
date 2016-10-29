@@ -63,10 +63,10 @@ ol.noneStyle,
 #header .item{height:100%;padding:0 .8rem;font:1.6rem/4rem 'Microsoft Yahei';color:#fff;}
 #header .item.left{float: left;}
 #header .item.right{float: right;}
-#header .item.btnHome{width:3.5rem;background:url(../images/head_icon_home.png) no-repeat 1.2rem center;padding: 0 .6rem 0 3.2rem;}
+#header .item.btnHome{width:3.6rem;background:url(../images/head_icon_home.png) no-repeat center center;}
 #header .item.btnMenu{width:4rem;background:url(../images/head_icon_list.png) no-repeat center center;}
 #header .item.btnMore{width:4rem;background:url(../images/head_icon_more.png) no-repeat center center;}
-#header .item.title{position: absolute;left:8rem;right:8rem;overflow-x: hidden;text-align: center;padding:0;}
+#header .item.title{position: absolute;left:4rem;right:4rem;overflow-x: hidden;text-align: center;padding:0;}
 #header .item.title.logo{text-align: left;left:0;padding-left: 4.6rem;background:url(../images/logo2.png) no-repeat .8rem center;font-size: 1.8rem;}
 
 /* 主体页面 */
@@ -101,13 +101,12 @@ ol.noneStyle,
 #tw4_onepage .op_header .item.right{right:0;}
 #tw4_onepage .op_header .item.btnBack{width:3rem;background: url(../images/head_icon_back2.png) no-repeat center center;}
 #tw4_onepage .op_header .item.btnMore{width:3.6rem;background: url(../images/head_icon_more2.png) no-repeat center center;}
-#tw4_onepage .op_header .item.title{font-size: 1.6rem;left:4rem;right:4rem;text-align: center;z-index: 1;}
+#tw4_onepage .op_header .item.title{font-size: 1.6rem;left:3.6rem;right:3.6rem;text-align: center;z-index: 1;}
 #tw4_onepage .op_content{overflow-x: hidden;overflow-y: auto;height: 100%;}
-#tw4_onepage .op_content .hide{display:block;}
 #tw4_onepage .op_content iframe{margin:0;padding:0;width:100%;height:100%;border:none;}
 
 /* 更多列表导航 */
-#tw4_more_list{width:100%;position: absolute;left:-100%;top:0;bottom:0;margin-left:-1px;z-index: 100;
+#tw4_more_list{width:100%;position: absolute;left:-100%;top:0;bottom:0;z-index: 100;
 	-webkit-transition: all .25s ease;
 	   -moz-transition: all .25s ease;
 	    -ms-transition: all .25s ease;
@@ -115,12 +114,11 @@ ol.noneStyle,
 	        transition: all .25s ease;
 }
 #tw4_more_list.show{left:0;}
-#tw4_more_list .moreListBg{position: absolute;left:80%;right:0;top:0;bottom:0;z-index:2;background-color:rgba(255,255,255,.01);}
-#tw4_more_list .wrapper{background-color:#f3f3f3;border-right:1px solid #666;box-shadow:.3rem 0 1rem rgba(255,255,255,.5);position: absolute;left:0;right:20%;top:0;bottom:0;z-index:2;}
+#tw4_more_list .moreListBg{position: absolute;left:80%;right:0;top:0;bottom:0;z-index:2;background-color:rgba(0,0,0,.2);}
+#tw4_more_list .wrapper{background-color:#f3f3f3;box-shadow:.3rem 0 1rem rgba(0,0,0,.5);position: absolute;left:0;right:20%;top:0;bottom:0;z-index:2;}
 #tw4_more_list .wrapper .moreBlockHeader{height: 4rem;border-bottom: 1px solid #ccc;background-color:#e6e6e6;box-shadow: 0 1px 1px #fff;font:1.6rem/4rem 'Microsoft Yahei';color:#666;text-align: center;}
 #tw4_more_list .wrapper .moreBlockContent{position: absolute;top:0;bottom:0;left:0;right:0;overflow-x: hidden;overflow-y: auto;}
 #tw4_more_list .wrapper .moreBlockContent.hasHeader{top:4rem;}
-#tw4_more_list .wrapper .moreBlockContent .hide{display:block;}
 
 @media screen and (max-width: 480px) {
 	.tw4Container .tw4PagePagination .paginationItem img{
@@ -138,11 +136,10 @@ ol.noneStyle,
 		-webkit-background-size:2.6rem;
 				background-size:2.6rem;
 	}
-	#header .item.btnHome{
+	#header .item.btnHome{width:3rem;
 		-webkit-background-size:1.6rem;
 				background-size:1.6rem;
 	}
-	#header .item.title{left:7.2rem;right:7.2rem;}
 	#header .item.title.logo{padding-left:4.2rem;
 		-webkit-background-size:2.8rem;
 				background-size:2.8rem;
@@ -174,11 +171,10 @@ ol.noneStyle,
 		-webkit-background-size:2.2rem;
 				background-size:2.2rem;
 	}
-	#header .item.btnHome{padding: 0 .2rem 0 2.6rem;font-size:1.2rem;
+	#header .item.btnHome{width:2.4rem;
 		-webkit-background-size:1.2rem;
 				background-size:1.2rem;
 	}
-	#header .item.title{left:6.5rem;right:6.5rem;}
 	#header .item.title.logo{padding-left:3.8rem;
 		-webkit-background-size:2.2rem;
 				background-size:2.2rem;

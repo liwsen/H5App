@@ -39,6 +39,7 @@
 							<li><a href="#" onepage="title:'测试1',type:2,content:'pages/main.html',moreBtn:false">测试1</a></li>
 							<li><a href="#" onepage="title:'测试2',content:'测试2',moreBtn:false">测试2</a></li>
 							<li><a href="#" onepage="title:'测试3',type:2,content:'http://m.meitu.com/',moreBtn:false">测试3</a></li>
+							<li><a href="#" onepage="type:2,content:'http://m.meitu.com/',customHeader:'.henderSearch'">单页中搜索头部</a></li>
 						</ul>
 					</div>
 				<hr><a href="#" onepage="type:2,content:'http://m.jd.com',moreBtn:false,fullScreen:true">全屏远程连接测试</a>
@@ -64,6 +65,7 @@
     </div>
     <div class="tw4PagePagination" id="page_pagination"></div>
 </div>
+
 <script src="./js/static/js/sea.js"></script>
 <script src="./js/static/js/seajs-css.js"></script>
 <script>
@@ -81,7 +83,7 @@
 	});
 	// 加载入口模块
 	seajs.use(['main', 'm/myswiper'], function(main, myswiper){
-		window.MAIN = main.init();
+		window.TW4MAIN = main.init();
 
 		//banner
 		myswiper.done(function(){
@@ -93,5 +95,11 @@
 		});
 	});
 </script>
+
+<!-- 头部搜索模板 -->
+<div class="henderSearch hide">
+	<span class="searchIcon"></span>
+	<input type="search" name="search" value="" placeholder="搜索">
+</div>
 </body>
 </html>
