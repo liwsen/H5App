@@ -30,9 +30,29 @@
 				</div>
 				<!-- //banner end -->
 
-				<hr><a href="#" onepage="title:'Main页面',type:2,content:'pages/main.html',moreBtn:false">Main 页面</a>
-				<hr><a href="#" onepage="title:'文本单页',content:'这里是文本',moreListTitle:'列表标题',moreListContent:'列表内容'">文本单页和More下拉菜单</a>
-				<hr><a href="#" onepage="title:'点右侧按钮试试',content:'.testContent',moreListTitle:'指定元素列表',moreListContent:'.testMoreList'">指定元素内容和More下拉菜单</a>
+				<h3>图片滑动</h3>
+				<!-- default_images_slide start -->
+			    <div class="swiper-container" id="default_images_slide" style="height:80px;">
+			        <div class="swiper-wrapper">
+			            <div class="swiper-slide">Slide 1</div>
+			            <div class="swiper-slide">Slide 2</div>
+			            <div class="swiper-slide">Slide 3</div>
+			            <div class="swiper-slide">Slide 4</div>
+			            <div class="swiper-slide">Slide 5</div>
+			            <div class="swiper-slide">Slide 6</div>
+			            <div class="swiper-slide">Slide 7</div>
+			            <div class="swiper-slide">Slide 8</div>
+			            <div class="swiper-slide">Slide 9</div>
+			            <div class="swiper-slide">Slide 10</div>
+			        </div>
+			        <div class="swiper-pagination defaultImagesSlidePagination"></div>
+			    </div>
+				<!-- //default_images_slide end -->
+				
+
+				<h3><a href="#" onepage="title:'Main页面',type:2,content:'pages/main.html',moreBtn:false">Main 页面</a></h3>
+				<h3><a href="#" onepage="title:'文本单页',content:'这里是文本',moreListTitle:'列表标题',moreListContent:'列表内容'">文本单页和More下拉菜单</a></h3>
+				<h3><a href="#" onepage="title:'点右侧按钮试试',content:'.testContent',moreListTitle:'指定元素列表',moreListContent:'.testMoreList'">指定元素内容和More下拉菜单</a></h3>
 					<div class="testContent hide">我是隐藏内容，专门测试指定元素内容的</div>
 					<div class="testMoreList hide">
 						<ul>
@@ -42,7 +62,7 @@
 							<li><a href="#" onepage="type:2,content:'http://m.meitu.com/',customHeader:'.henderSearch'">单页中搜索头部</a></li>
 						</ul>
 					</div>
-				<hr><a href="#" onepage="type:2,content:'http://m.jd.com',moreBtn:false,fullScreen:true">全屏远程连接测试</a>
+				<h3><a href="#" onepage="type:2,content:'http://m.jd.com',moreBtn:false,fullScreen:true">全屏远程连接测试</a></h3>
 <!-- //Home end -->
             </div>
             <div class="pageItem" data-title="公告" data-classname="msg" data-icon="./images/nav_icon_msg.png" data-iconhover="./images/nav_icon_msg_hover.png">
@@ -85,14 +105,22 @@
 	seajs.use(['main', 'm/myswiper'], function(main, myswiper){
 		window.TW4MAIN = main.init();
 
-		//banner
 		myswiper.done(function(){
+			//banner
 			new Swiper('#banner', {
 	        	pagination: '.bannerPaginatio',
 				autoHeight: 'auto',
 				autoplay : 5000,
 			});
+			//default_images_slide
+		    new Swiper('#default_images_slide', {
+		        pagination: '.defaultImagesSlidePagination',
+		        slidesPerView: 3,
+		        paginationClickable: true,
+		        spaceBetween: 10,
+		    });
 		});
+
 	});
 </script>
 
