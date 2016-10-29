@@ -93,7 +93,7 @@ define(function(require, exports, module){
                 console.log(err);
             }
         });
-    	return this;
+        return this;
     }
 
 });

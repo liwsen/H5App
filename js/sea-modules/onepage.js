@@ -2,6 +2,7 @@ define(function(require, exports, module){
     var $ = require('jquery');
     var $onepage = $('#tw4_onepage');
     var loader = require('m/loader/loader');
+    var fn = require('m/fn');
 
     exports.init = function(options) {
         var DEFAULTS = {
@@ -49,18 +50,18 @@ define(function(require, exports, module){
             if(/^[\.|#]\w+$/.test(my.options.customHeader) && $(my.options.customHeader).length){
                 html.push($(my.options.customHeader)[0].outerHTML);
             }else{
-                html.push(my.options.customHeader);
+                html.push(fn.htmlspecialchars_decode(my.options.customHeader));
             }
         }else{
             if(my.options.moreBtn){
                 html.push('<span class="item right btnMore" morelist="title:\''+ my.options.moreListTitle +'\',content:\''+ my.options.moreListContent +'\'"></span>');
                 $onepage.addClass('hasMore');
             }
-            html.push('<span class="item title">'+ my.options.title +'</span>');
+            html.push('<span class="item title">'+ fn.htmlspecialchars_decode(my.options.title) +'</span>');
         }
         html.push('</div>');
         //内容
-        if(my.options.type === 2){
+        if(my.options.type === 2 && !!my.options.content){
             html.push('<div class="op_content" id="op_content" style="overflow:hidden;">');
             html.push('<iframe name="onepage_iframe" id="onepage_iframe" src="'+ my.options.content +'"></iframe>');
         }else{
@@ -68,7 +69,7 @@ define(function(require, exports, module){
             if(/^[\.|#]\w+$/.test(my.options.content) && $(my.options.content).length){
                 html.push($(my.options.content)[0].outerHTML);
             }else{
-                html.push(my.options.content);
+                html.push(fn.htmlspecialchars_decode(my.options.content));
             }
         }
         html.push('</div>');
@@ -107,7 +108,7 @@ define(function(require, exports, module){
         var my = this;
         $onepage.off().on('click', '.btnBack', function(event) {
             event.preventDefault();
-            if(my.options.type === 2){
+            if(my.options.type === 2 && !!my.options.content){
                 try{
                     var primitiveSrc = $.trim(my.iframe[0].getAttribute('src'));
                     var nowSrc = $.trim(my.iframe[0].contentWindow.location.href);
@@ -130,6 +131,8 @@ define(function(require, exports, module){
                     console.log(err);
                 }
             }else if(my.options.type === 1){
+                my.hide();
+            }else{
                 my.hide();
             }
         })

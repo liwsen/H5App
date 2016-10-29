@@ -1,5 +1,6 @@
 define(function(require, exports, module){
     var $ = require('jquery');
+    var fn = require('m/fn');
     require('static/css/animate/custom.animate.css');
 
     exports.init = function(options) {
@@ -48,12 +49,12 @@ define(function(require, exports, module){
 
     //带logo的标题
     exports.logo = function(){
-    	return '<span class="animated fadeIn item title logo">'+ this.options.title +'</span>';
+    	return '<span class="animated fadeIn item title logo">'+ fn.htmlspecialchars_decode(this.options.title) +'</span>';
     };
 
     //标题
     exports.title = function(){
-    	return '<span class="animated fadeIn item title">'+ this.options.title +'</span>';
+    	return '<span class="animated fadeIn item title">'+ fn.htmlspecialchars_decode(this.options.title) +'</span>';
     };
 
     //主页
