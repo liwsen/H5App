@@ -33,4 +33,33 @@ define(function(require, exports, module){
         str = str.replace(/&#039;/g, "'");  
         return str;
     };
+    
+    //复制对象方法
+    fn.cloneObj = function(oldObj){
+        if (typeof(oldObj) != 'object') return oldObj;
+        if (oldObj == null) return oldObj;
+        var newObj = new Object();
+        for (var i in oldObj)
+            newObj[i] = cloneObj(oldObj[i]);
+        return newObj;
+    };
+    
+    //扩展对象
+    fn.extendObj = function(){
+        var args = arguments;
+        if (args.length < 2) return;
+        var temp = this.cloneObj(args[0]); //调用复制对象方法
+        for (var n = 1; n < args.length; n++) {
+            for (var i in args[n]) {
+                temp[i] = args[n][i];
+            }
+        }
+        return temp;
+    };
+
+    //打乱数组
+    fn.messArr = function(arr){
+        arr.sort(function(){ return 0.5 - Math.random() })
+        return arr;
+    };
 });

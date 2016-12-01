@@ -1,27 +1,55 @@
 define(function(require, exports, module){
+    require('static/js/sha1');//加密函数
     var $ = require('jquery');
-    var $onepage = $('#tw4_onepage');
+    var $callback = require('m/callback');//回调函数处理
+    var $onepage = null;
     var loader = require('m/loader/loader');
     var fn = require('m/fn');
+    var pagesOptions = {};//各个单页配置
+    var idprefix = 'tw4_onepage_';//ID前缀
+    var pagesClass = 'tw4Onepage';
+    var pageCache = {};//异步加载数据缓存
 
     exports.init = function(options) {
         var DEFAULTS = {
             elem: $('#tw4_container'),
             title: '标题',
-            type: 1,//1为Html或jquery元素（./#开头），2为Iframe
+            type: 1,//1为Html或jquery元素（./#开头），2为Iframe，3为异步加载数据并缓存
             content: '',//html内容或者iframe连接地址
             show: true,//初始化时是否直接显示
             backBtn: true,//返回按钮是否显示
-            moreBtn: true,//更多按钮是否显示
+            moreBtn: false,//更多按钮是否显示
             moreListTitle: '',//左侧列表标题
             moreListContent: '',//左侧列表Html
             fullScreen: false,
             customHeader: '',//自定义头部，该项不为空，title,moreBtn,moreListTitle,moreListContent无效
+            ajaxData: {},//type为3时，异步传递的数据
+            callback: null,//回调函数，(输出名称:文件名)，中间用':'隔开，只有文件名时，输出名称默认为base
+            index: 0,//单页索引，标识第几个单页
         };
         this.options = $.extend({}, DEFAULTS, options);
-        if(this.options.elem.length){
-            this.create().back();
+
+        //回调函数处理
+        if(!!this.options.callback){
+            if(/:/.test(this.options.callback)){
+                this.callbackName = $.trim(this.options.callback.split(':')[0]);
+                this.callbackValue = $.trim(this.options.callback.split(':')[1]);
+            }else{
+                this.callbackName = 'base';
+                this.callbackValue = $.trim(this.options.callback);
+            }
         }
+
+        //操作
+        if(this.options.elem.length){
+            //单页元素
+            $onepage = $('#'+idprefix+parseInt(this.options.index, 10));
+            //创建
+            this.create().back();
+            //记录单页配置
+            pagesOptions[idprefix+ this.options.index] = this.options;
+        }
+
         return this;
     };
 
@@ -29,9 +57,10 @@ define(function(require, exports, module){
     exports.create = function(){
         var my = this;
         var html = [];
+
         if($onepage.length === 0){
-            $onepage = $('<div id="tw4_onepage"></div>');
-            $onepage.appendTo(my.options.elem);
+            $onepage = $('<div id="'+ idprefix + my.options.index +'" class="'+ pagesClass +'" data-index="'+ my.options.index +'"></div>');
+            $onepage.appendTo(my.options.elem).css('z-index', 90+parseInt(my.options.index, 10));
         }
         //全屏
         if(my.options.fullScreen){
@@ -60,54 +89,120 @@ define(function(require, exports, module){
             html.push('<span class="item title">'+ fn.htmlspecialchars_decode(my.options.title) +'</span>');
         }
         html.push('</div>');
-        //内容
-        if(my.options.type === 2 && !!my.options.content){
-            html.push('<div class="op_content" id="op_content" style="overflow:hidden;">');
-            html.push('<iframe name="onepage_iframe" id="onepage_iframe" src="'+ my.options.content +'"></iframe>');
-        }else{
-            html.push('<div class="op_content" id="op_content">');
-            if(/^[\.|#]\w+$/.test(my.options.content) && $(my.options.content).length){
-                html.push($(my.options.content)[0].outerHTML);
-            }else{
-                html.push(fn.htmlspecialchars_decode(my.options.content));
-            }
-        }
-        html.push('</div>');
-        $onepage.html(html.join('')).find('.hide').removeClass('hide');
-        //是否显示
-        my.options.show && my.show();
-        //loader
-        my.iframe = $('#onepage_iframe');
-        if(my.iframe.length){
+
+        //==============================================
+        //异步加载数据内容时，并缓存数据
+        if(my.options.type === 3 && !!my.options.content){
             loader.init();
-            if(my.iframe[0].attachEvent){
-                my.iframe[0].attachEvent("onload", function(){
+            var appendHtml = function(html, content){
+                html.push('<div class="op_content" id="op_content_'+ my.options.index +'">');
+                html.push(content);
+                html.push('</div>');
+                $onepage.html(html.join('')).find('.hide').removeClass('hide');
+                //是否显示
+                my.options.show && my.show();
+            };
+            var cacheKey = hex_sha1(my.options.content+JSON.stringify(my.options.ajaxData));
+
+            //缓存页面
+            if(pageCache.hasOwnProperty(cacheKey)){//缓存存在
+                appendHtml(html, '');
+                //回调函数
+                $callback[my.callbackName] && $callback[my.callbackName](my.callbackValue, my, pageCache[cacheKey]);
+                loader.hide();
+
+            }else{//缓存不存在
+                $.ajax({
+                    url: my.options.content,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: my.options.ajaxData,
+                    // contentType: "application/json;charset=utf-8",
+                })
+                .done(function(data) {
+                    if(data.status){
+                        appendHtml(html, '');
+                        //缓存
+                        pageCache[cacheKey] = data.data;
+                        //回调函数
+                        $callback[my.callbackName] && $callback[my.callbackName](my.callbackValue, my, pageCache[cacheKey]);
+                    }else{
+                        appendHtml(html, data.msg);
+                    }
+                })
+                .fail(function() {
+                    appendHtml(html, '加载失败！');
+                })
+                .always(function() {
                     loader.hide();
                 });
-            }else{
-                my.iframe[0].onload = function(){
-                    loader.hide();
-                };
             }
+
+
+        //==============================================
+        //非异步加载数据内容时
+        }else{
+            if(my.options.type === 2 && !!my.options.content){
+                html.push('<div class="op_content" id="op_content_'+ my.options.index +'" style="overflow:hidden;">');
+                html.push('<iframe name="onepage_iframe" id="onepage_iframe" src="'+ my.options.content +'"></iframe>');
+            }else{
+                html.push('<div class="op_content" id="op_content_'+ my.options.index +'">');
+                if(/^[\.|#]\w+$/.test(my.options.content) && $(my.options.content).length){
+                    html.push($(my.options.content)[0].outerHTML);
+                }else{
+                    html.push(fn.htmlspecialchars_decode(my.options.content));
+                }
+            }
+            html.push('</div>');
+            $onepage.html(html.join('')).find('.hide').removeClass('hide');
+            //是否显示
+            my.options.show && my.show();
+            //loader
+            my.iframe = $('#onepage_iframe');
+            if(my.iframe.length){
+                loader.init();
+                if(my.iframe[0].attachEvent){
+                    my.iframe[0].attachEvent("onload", function(){
+                        loader.hide();
+                    });
+                }else{
+                    my.iframe[0].onload = function(){
+                        loader.hide();
+                    };
+                }
+            }
+            //回调函数
+            $callback[my.callbackName] && $callback[my.callbackName](my.callbackValue, my, pageCache[cacheKey]);
         }
         return this;
     };
 
+    //恢复到当前单页
+    exports.recovery = function(id){
+        if(!!id && idprefix+this.options.index !== id){
+            $onepage = $('#'+id);
+            this.options = pagesOptions[id];
+        }
+    };
     //显示
     exports.show = function(){
-        $onepage.addClass('show');
+        setTimeout(function(){
+            $onepage.css({left:0,right:0}).addClass('show');
+        }, 50);//稍作停顿，实现滑动效果
         return this;
     };
     //隐藏
     exports.hide = function(){
-        $onepage.removeClass('show');
+        $onepage.css({left:'100%',right:'-100%'}).removeClass('show');
         return this;
     };
     //返回按钮
     exports.back = function(){
         var my = this;
+        //返回
         $onepage.off().on('click', '.btnBack', function(event) {
             event.preventDefault();
+            my.recovery($(this).closest('.'+ pagesClass).attr('id'));//检查响应页面
             if(my.options.type === 2 && !!my.options.content){
                 try{
                     var primitiveSrc = $.trim(my.iframe[0].getAttribute('src'));
@@ -136,21 +231,39 @@ define(function(require, exports, module){
                 my.hide();
             }
         })
+        //退出全屏
         .on('click', '.quit', function(event) {
             event.preventDefault();
+            my.recovery($(this).closest('.'+ pagesClass).attr('id'));//检查响应页面
             my.hide();
         });
         return this;
+    };
+    //数据加密
+    exports.encrypted = function(u,p){
+        return hex_sha1(u+hex_sha1(p));
     };
 
     //单页事件
     exports.event = function(){
         var my = this;
+        $('body').find('*[data-onepage]').each(function(index, el) {
+            var op = $(this).data('onepage');
+            if(!!op && typeof onepages !== 'undefined' && onepages.hasOwnProperty(op) && !!onepages[op]){
+                $(this).attr('onepage', onepages[op]);
+            }
+        });
         $('body').off('click', '*[onepage]').on('click', '*[onepage]', function(event) {
             event.preventDefault();
             var str = $(this).attr('onepage');
             try{
                 var obj = (new Function("return {" + str +'}'))();
+                //初始化异步传递数据
+                if(!obj.hasOwnProperty('ajaxData')){
+                    obj['ajaxData'] = {};
+                }
+                obj.ajaxData['isOnepage'] = true;
+                //初始化
                 my.init(obj);
             }
             catch(err){

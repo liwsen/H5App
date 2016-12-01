@@ -60,9 +60,10 @@ define(function(require, exports, module){
 		return my;
     };
 
-    //头部配置
+    //头部配置，开发每个项目时都首先配置好头部内容，同时注意和首页滑块内容与之对应。
     exports.headerOptions = function(type){
         type = typeof type === 'undefined' ? this.options.initialSlide : type;
+        //主页
         if(type === 0){
             HEAD.init({elem: $header, title: '主页标题', options: 'logo,menu', menuTitle: '百度', menuUrl: 'http://www.baidu.com/'});
         //公告头部
@@ -73,7 +74,10 @@ define(function(require, exports, module){
             HEAD.init({elem: $header, customHeader: '.henderSearch'});
         //联系我们
         }else if(type === 3){
-            HEAD.init({elem: $header, title: '联系我们', options: 'title,home,more', moreListTitle: '更多列表', moreListContent: '更多列表内容'});
+            HEAD.init({elem: $header, title: '联系我们', options: 'title,home,more', moreListTitle: '更多列表', moreListContent: '更多列表内容'})
+        //帮助文档
+        }else if(type === 4){
+            HEAD.init({elem: $header, title: '帮助文档', options: 'title,home'});
         }
         return this;
     }
