@@ -115,8 +115,8 @@ define(function(require, exports, module){
             if(pageCache.hasOwnProperty(cacheKey)){//缓存存在
                 appendHtml(html, '');
                 //回调函数
-                $callback[my.callbackName] && $callback[my.callbackName](my.callbackValue, my, pageCache[cacheKey]);
                 loader.hide();
+                $callback[my.callbackName] && $callback[my.callbackName](my.callbackValue, my, pageCache[cacheKey]);
 
             }else{//缓存不存在
                 $.ajax({
@@ -151,7 +151,7 @@ define(function(require, exports, module){
         }else{
             if(my.options.type === 2 && !!my.options.content){
                 html.push('<div class="op_content" id="op_content_'+ my.options.index +'" style="overflow:hidden;">');
-                html.push('<iframe name="onepage_iframe" id="onepage_iframe" src="'+ my.options.content +'"></iframe>');
+                html.push('<iframe name="onepage_iframe_'+ my.options.index +'" id="onepage_iframe_'+ my.options.index +'" src="'+ my.options.content +'"></iframe>');
             }else{
                 html.push('<div class="op_content" id="op_content_'+ my.options.index +'">');
                 if(/^[\.|#]\w+$/.test(my.options.content) && $(my.options.content).length){
@@ -165,7 +165,7 @@ define(function(require, exports, module){
             //是否显示
             my.options.show && my.show();
             //loader
-            my.iframe = $('#onepage_iframe');
+            my.iframe = $('#onepage_iframe_'+ my.options.index);
             if(my.iframe.length){
                 loader.init();
                 if(my.iframe[0].attachEvent){
@@ -223,7 +223,7 @@ define(function(require, exports, module){
                     // console.log(window.location.href);
                     // console.log(reg.test(rule(window.location.href)));
                     if(!reg.test(window.location.href)){
-                        document.getElementById('onepage_iframe').contentWindow.history.back();
+                        document.getElementById('onepage_iframe_'+ my.options.index).contentWindow.history.back();
                     }else{
                         my.hide();
                     }

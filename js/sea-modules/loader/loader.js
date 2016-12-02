@@ -19,6 +19,8 @@ define(function(require, exports, module){
         if($loader.length === 0){
             $loader = $('<div id="tw4_loader" class="animated fadeIn show"></div>');
             $loader.appendTo(this.options.elem);
+        }else{
+            $loader.addClass('show');
         }
         $loader.html('<span class="_loader center"></div>');
         return this;
