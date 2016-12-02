@@ -18,7 +18,7 @@
 	<div class="swiper-container" id="tw4_pages">
         <div class="tw4PageWrapper swiper-wrapper">
 <!-- ============================================================================================================ -->
-            <div class="pageItem" data-title="主页" data-classname="home" data-icon="./images/nav_icon_home.png" data-iconhover="./images/nav_icon_home_hover.png">
+            <div id="page_home" class="pageItem" data-title="主页" data-classname="home" data-icon="./images/nav_icon_home.png" data-iconhover="./images/nav_icon_home_hover.png">
 <!-- Home start -->
 				<!-- banner start -->
             	<div class="swiper-container" id="banner">
@@ -26,6 +26,7 @@
 					    <div class="swiper-slide"><img src="./images/upload/001.jpg" alt=""></div>
 					    <div class="swiper-slide"><img src="./images/upload/002.jpg" alt=""></div>
 					    <div class="swiper-slide"><img src="./images/upload/003.jpg" alt=""></div>
+					    <div class="swiper-slide"><img src="./images/upload/004.jpg" alt=""></div>
 				  	</div>
                     <div class="bannerPaginatio"></div>
 				</div>
@@ -58,8 +59,8 @@
 				</style>
 				<div class="testBlock clearfix">
 					<a onepage="title:'基本单页',content:'基本单页内容详情'">基本单页</a>
-					<a onepage="title:'Iframe框架页面', type:2, content:'pages/main.html'">Iframe框架页面</a>
-					<a onepage="type:2,content:'http://m.jd.com',fullScreen:true">Iframe框架全屏页面</a>
+					<a onepage="title:'Iframe框架页面',type:2,content:'pages/main.html'">Iframe框架页面</a>
+					<a onepage="type:2,content:'pages/main.html',fullScreen:true">Iframe框架全屏页面</a>
 					<a onepage="title:'指定Dom元素',content:'.testContent'">指定Dom元素</a>
 					<a onepage="title:'More左侧滑动菜单',content:'More左侧滑动菜单展示，请点击右上角按钮试试。',moreBtn:true,moreListTitle:'菜单标题',moreListContent:'菜单内容'">More左侧滑动菜单</a>
 					<a onepage="title:'More左侧滑动菜单2',content:'菜单内容为指定Dom元素的内容，请点击右上角按钮试试。',moreBtn:true,moreListTitle:'菜单标题',moreListContent:'.testMoreList'">More左侧滑动菜单2</a>
@@ -69,7 +70,9 @@
 
 				<div class="testContent hide">我是指定Dom元素的内容，content为 '.'+className 或者 '#'+id。</div>
 				<div class="testContent2 hide">
-					<h3 onepage="title:'我在第2层',content:'基本单页内容详情',index:2">请点击我</h3>
+					<h3 onepage="title:'我在第2层',content:'基本单页内容详情',index:2">请点击我，打开基本单页</h3>
+					<h3 onepage="title:'我在第2层',type:2,content:'pages/main.html',index:2">请点击我，打开Iframe框架页面</h3>
+					<h3 onepage="type:2,content:'pages/main.html',fullScreen:true,index:2">请点击我，Iframe框架全屏页面</h3>
 				</div>
 				<div class="testMoreList hide">
 					<ul>
@@ -79,6 +82,13 @@
 						<li><a onepage="content:'自定义头部',customHeader:'.henderSearch',index:2">自定义头部</a></li>
 					</ul>
 				</div>
+
+				<div class="testBlock clearfix">
+					<a swiperpage="page_msg">公告</a>
+					<a swiperpage="page_search">搜索</a>
+					<a swiperpage="page_contact">联系我们</a>
+					<a swiperpage="page_help">帮助文档</a>
+				</div>
 				<!-- 演示测试数据end -->
 
 
@@ -86,25 +96,25 @@
 <!-- //Home end -->
             </div>
 <!-- ============================================================================================================ -->
-            <div class="pageItem" data-title="公告" data-classname="msg" data-icon="./images/nav_icon_msg.png" data-iconhover="./images/nav_icon_msg_hover.png">
+            <div id="page_msg" class="pageItem" data-title="公告" data-classname="msg" data-icon="./images/nav_icon_msg.png" data-iconhover="./images/nav_icon_msg_hover.png">
 <!-- Msg start -->
             	公告内容
 <!-- //Msg end -->
             </div>
 <!-- ============================================================================================================ -->
-            <div class="pageItem" data-title="搜索" data-classname="search" data-icon="./images/nav_icon_search.png" data-iconhover="./images/nav_icon_search_hover.png">
+            <div id="page_search" class="pageItem" data-title="搜索" data-classname="search" data-icon="./images/nav_icon_search.png" data-iconhover="./images/nav_icon_search_hover.png">
 <!-- Search start -->
             	搜索结果
 <!-- //Search end -->
             </div>
 <!-- ============================================================================================================ -->
-            <div class="pageItem" data-title="联系我们" data-classname="contact" data-icon="./images/nav_icon_contact.png" data-iconhover="./images/nav_icon_contact_hover.png">
+            <div id="page_contact" class="pageItem" data-title="联系我们" data-classname="contact" data-icon="./images/nav_icon_contact.png" data-iconhover="./images/nav_icon_contact_hover.png">
 <!-- Contact start -->
             	联系我们板块
 <!-- //Contact end -->
             </div>
 <!-- ============================================================================================================ -->
-            <div class="pageItem" data-title="帮助文档" data-classname="help" data-icon="./images/nav_icon_document.png" data-iconhover="./images/nav_icon_document_hover.png">
+            <div id="page_help" class="pageItem" data-title="帮助文档" data-classname="help" data-icon="./images/nav_icon_document.png" data-iconhover="./images/nav_icon_document_hover.png">
 <!-- Help start -->
             	帮助文档
 <!-- //Help end -->

@@ -7,7 +7,7 @@
 ## 单页超级连接实现方法：
 
 ```
-<a href="#" onepage="title:'顶部标题',content:'html格式化详细内容'">单页连接测试</a>
+<a onepage="title:'顶部标题',content:'html格式化详细内容'">单页连接测试</a>
 ```
 
 ### 单页到几种形式

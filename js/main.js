@@ -4,6 +4,7 @@ define(function(require, exports, module){
     var ONEPAGE = require('m/onepage');
     var $header = $('#header');
     var myswiper = require('m/myswiper');
+    var pagesId = 'tw4_pages';
 
     exports.init = function(options) {
         var DEFAULTS = {
@@ -13,13 +14,28 @@ define(function(require, exports, module){
         
         this.swiperEffect().headerOptions(this.options.initialSlide).moreList();
         ONEPAGE.event();
+
+        //滑动到指定到页面上
+        $('#'+ pagesId).on('click', '*[swiperpage]', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            var id = $(this).attr('swiperpage');
+            var $id = $('#'+id);
+            if(!!id && $id.length && !!$id.data('classname')){
+                $('.item_'+ $id.data('classname')).trigger('click');
+                $('.tw4Onepage').css({
+                    left: '100%',
+                    right: '-100%',
+                });
+            }
+        });
         return this;
     };
 
     //整体滑动效果
     exports.swiperEffect = function(){
     	var my = this;
-		var $pages = $('#tw4_pages').find('.pageItem');
+		var $pages = $('#'+ pagesId).find('.pageItem');
 		var paginationClassName = 'paginationItem';
 		var swiperResize = function(swiper){
 			var $items = $('.tw4PagePagination').find('.'+ paginationClassName);
@@ -27,7 +43,7 @@ define(function(require, exports, module){
 		};
 
         myswiper.done(function(){
-        	swiper = new Swiper('#tw4_pages', {
+        	swiper = new Swiper('#'+ pagesId, {
 		        pagination: '#page_pagination',
                 wrapperClass: 'tw4PageWrapper',
                 slideClass : 'pageItem',
@@ -65,16 +81,16 @@ define(function(require, exports, module){
         type = typeof type === 'undefined' ? this.options.initialSlide : type;
         //主页
         if(type === 0){
-            HEAD.init({elem: $header, title: '主页标题', options: 'logo,menu', menuTitle: '百度', menuUrl: 'http://www.baidu.com/'});
+            HEAD.init({elem: $header, title: '主页标题', options: 'logo,menu', menuTitle: '阿木橘子', menuUrl: 'http://www.amujz.com/'});
         //公告头部
         }else if(type === 1){
-            HEAD.init({elem: $header, title: '公告通知', options: 'title,menu,home'});
+            HEAD.init({elem: $header, title: '公告通知', options: 'title,home,more', moreListTitle: '更多列表', moreListContent: '更多列表内容'});
         //搜索头部
         }else if(type === 2){
             HEAD.init({elem: $header, customHeader: '.henderSearch'});
         //联系我们
         }else if(type === 3){
-            HEAD.init({elem: $header, title: '联系我们', options: 'title,home,more', moreListTitle: '更多列表', moreListContent: '更多列表内容'})
+            HEAD.init({elem: $header, title: '联系我们', options: 'title,home,menu'})
         //帮助文档
         }else if(type === 4){
             HEAD.init({elem: $header, title: '帮助文档', options: 'title,home'});

@@ -11,6 +11,7 @@ define(function(require, exports, module){
     var pageCache = {};//异步加载数据缓存
 
     exports.init = function(options) {
+        var my = this;
         var DEFAULTS = {
             elem: $('#tw4_container'),
             title: '标题',
@@ -21,36 +22,40 @@ define(function(require, exports, module){
             moreBtn: false,//更多按钮是否显示
             moreListTitle: '',//左侧列表标题
             moreListContent: '',//左侧列表Html
-            fullScreen: false,
+            fullScreen: false,//全屏显示
+            quitBtn: false,//全屏显示的情况下，是否显示退出按钮
             customHeader: '',//自定义头部，该项不为空，title,moreBtn,moreListTitle,moreListContent无效
             ajaxData: {},//type为3时，异步传递的数据
             callback: null,//回调函数，(输出名称:文件名)，中间用':'隔开，只有文件名时，输出名称默认为base
             index: 0,//单页索引，标识第几个单页
         };
-        this.options = $.extend({}, DEFAULTS, options);
+        my.options = $.extend({}, DEFAULTS, options);
 
         //回调函数处理
-        if(!!this.options.callback){
-            if(/:/.test(this.options.callback)){
-                this.callbackName = $.trim(this.options.callback.split(':')[0]);
-                this.callbackValue = $.trim(this.options.callback.split(':')[1]);
+        if(!!my.options.callback){
+            if(/:/.test(my.options.callback)){
+                my.callbackName = $.trim(my.options.callback.split(':')[0]);
+                my.callbackValue = $.trim(my.options.callback.split(':')[1]);
             }else{
-                this.callbackName = 'base';
-                this.callbackValue = $.trim(this.options.callback);
+                my.callbackName = 'base';
+                my.callbackValue = $.trim(my.options.callback);
             }
         }
 
         //操作
-        if(this.options.elem.length){
+        if(my.options.elem.length){
             //单页元素
-            $onepage = $('#'+idprefix+parseInt(this.options.index, 10));
+            $onepage = $('#'+idprefix+parseInt(my.options.index, 10));
             //创建
-            this.create().back();
+            my.create().back();
             //记录单页配置
-            pagesOptions[idprefix+ this.options.index] = this.options;
+            pagesOptions[idprefix+ my.options.index] = my.options;
         }
 
-        return this;
+        //返回函数，使用在iframe子页面下调用。window.parent.onepage_back();
+        window['onepage_back'] = my.hide;
+
+        return my;
     };
 
     //创建
@@ -65,7 +70,9 @@ define(function(require, exports, module){
         //全屏
         if(my.options.fullScreen){
             $onepage.addClass('fullScreen');
-            html.push('<div class="quit"></div>');
+            if(my.options.quitBtn){
+                html.push('<div class="quit"></div>');
+            }
         }else{
             $onepage.removeClass('fullScreen');
         }
