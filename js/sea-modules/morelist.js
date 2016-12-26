@@ -1,5 +1,6 @@
 define(function(require, exports, module){
     var $ = require('jquery');
+    var route = require('m/route');
     var $list = $('#tw4_more_list');
     var $container = $('#tw4_container');
 
@@ -46,6 +47,7 @@ define(function(require, exports, module){
     };
     //显示
     exports.show = function(){
+        route.set('_nav', 1);//设置路由
         $container.css({left: '80%', right: '-80%'});
         $list.addClass('show');
         return this;

@@ -1,14 +1,15 @@
 define(function(require, exports, module){
-    require('static/js/sha1');//加密函数
-    var $ = require('jquery');
     var $callback = require('m/callback');//回调函数处理
     var $onepage = null;
     var loader = require('m/loader/loader');
     var fn = require('m/fn');
+    var route = require('m/route');
     var pagesOptions = {};//各个单页配置
     var idprefix = 'tw4_onepage_';//ID前缀
     var pagesClass = 'tw4Onepage';
     var pageCache = {};//异步加载数据缓存
+    var $ = require('jquery');
+    require('static/js/sha1');//加密函数
 
     exports.init = function(options) {
         var my = this;
@@ -195,6 +196,7 @@ define(function(require, exports, module){
     exports.show = function(){
         setTimeout(function(){
             $onepage.css({left:0,right:0}).addClass('show');
+            route.set('', $onepage.data('index'));//设置路由
         }, 50);//稍作停顿，实现滑动效果
         return this;
     };
@@ -278,6 +280,6 @@ define(function(require, exports, module){
             }
         });
         return this;
-    }
+    };
 
 });
