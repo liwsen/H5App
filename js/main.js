@@ -81,7 +81,7 @@ define(function(require, exports, module){
         type = typeof type === 'undefined' ? this.options.initialSlide : type;
         //主页
         if(type === 0){
-            HEAD.init({elem: $header, title: '主页标题', options: 'logo,menu', menuTitle: '阿木橘子', menuUrl: 'http://www.amujz.com/'});
+            HEAD.init({elem: $header, title: '主页标题', options: 'logo,menu', menuTitle: '阿木橘子', menuUrl: 'http://liwsen.oschina.io/'});
         //公告头部
         }else if(type === 1){
             HEAD.init({elem: $header, title: '公告通知', options: 'title,home,more', moreListTitle: '更多列表', moreListContent: '更多列表内容'});
