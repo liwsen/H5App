@@ -202,7 +202,8 @@ define(function(require, exports, module){
     };
     //隐藏
     exports.hide = function(){
-        $onepage.css({left:'100%',right:'-100%'}).removeClass('show');
+        history.go(-1);
+        // $onepage.css({left:'100%',right:'-100%'}).removeClass('show');
         return this;
     };
     //返回按钮
@@ -212,7 +213,7 @@ define(function(require, exports, module){
         $onepage.off().on('click', '.btnBack', function(event) {
             event.preventDefault();
             my.recovery($(this).closest('.'+ pagesClass).attr('id'));//检查响应页面
-            if(my.options.type === 2 && !!my.options.content){
+            /*if(my.options.type === 2 && !!my.options.content){
                 try{
                     var primitiveSrc = $.trim(my.iframe[0].getAttribute('src'));
                     var nowSrc = $.trim(my.iframe[0].contentWindow.location.href);
@@ -238,7 +239,8 @@ define(function(require, exports, module){
                 my.hide();
             }else{
                 my.hide();
-            }
+            }*/
+            my.hide();
         })
         //退出全屏
         .on('click', '.quit', function(event) {

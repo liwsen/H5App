@@ -42,12 +42,14 @@ define(function(require, exports, module){
         html.push('<div class="moreBlockContent '+ hasClass +'">'+ content +'</div>');
         html.push('</div>');
         $list.html(html.join('')).find('.hide').removeClass('hide');
+
+        route.set('_nav', 1);//设置路由
+        
         setTimeout(this.show,200);
         return this;
     };
     //显示
     exports.show = function(){
-        route.set('_nav', 1);//设置路由
         $container.css({left: '80%', right: '-80%'});
         $list.addClass('show');
         return this;

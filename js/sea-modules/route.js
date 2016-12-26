@@ -13,6 +13,7 @@ define(function(require, exports, module){
         if($('#'+ moreList).hasClass('show')){
 	        $('#'+ container).css({left: 0, right: 0});
 	        $('#'+ moreList).removeClass('show');
+            $.hash('_nav', null);
         }
         if(!route_nav){
 	        $('.'+ pagesClass).each(function(index, el) {
