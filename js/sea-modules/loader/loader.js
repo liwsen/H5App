@@ -19,8 +19,6 @@ define(function(require, exports, module){
     //加载
     exports.loader = function() {
         var my = this;
-        var timeout = 3000;
-        var timenow = time.getTimestamp();
         if($loader.length === 0){
             $loader = $('<div id="tw4_loader" class="animated fadeIn show"></div>');
             $loader.appendTo(my.options.elem);
