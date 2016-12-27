@@ -18,6 +18,18 @@
 	<div class="swiper-container" id="tw4_pages">
         <div class="tw4PageWrapper swiper-wrapper">
 <!-- ============================================================================================================ -->
+            <div id="page_msg" class="pageItem" data-title="公告" data-classname="msg" data-icon="./images/nav_icon_msg.png" data-iconhover="./images/nav_icon_msg_hover.png">
+<!-- Msg start -->
+            	公告内容
+<!-- //Msg end -->
+            </div>
+<!-- ============================================================================================================ -->
+            <div id="page_search" class="pageItem" data-title="搜索" data-classname="search" data-icon="./images/nav_icon_search.png" data-iconhover="./images/nav_icon_search_hover.png">
+<!-- Search start -->
+            	搜索结果
+<!-- //Search end -->
+            </div>
+<!-- ============================================================================================================ -->
             <div id="page_home" class="pageItem" data-title="主页" data-classname="home" data-icon="./images/nav_icon_home.png" data-iconhover="./images/nav_icon_home_hover.png">
 <!-- Home start -->
 				<!-- banner start -->
@@ -97,18 +109,6 @@
 <!-- //Home end -->
             </div>
 <!-- ============================================================================================================ -->
-            <div id="page_msg" class="pageItem" data-title="公告" data-classname="msg" data-icon="./images/nav_icon_msg.png" data-iconhover="./images/nav_icon_msg_hover.png">
-<!-- Msg start -->
-            	公告内容
-<!-- //Msg end -->
-            </div>
-<!-- ============================================================================================================ -->
-            <div id="page_search" class="pageItem" data-title="搜索" data-classname="search" data-icon="./images/nav_icon_search.png" data-iconhover="./images/nav_icon_search_hover.png">
-<!-- Search start -->
-            	搜索结果
-<!-- //Search end -->
-            </div>
-<!-- ============================================================================================================ -->
             <div id="page_contact" class="pageItem" data-title="联系我们" data-classname="contact" data-icon="./images/nav_icon_contact.png" data-iconhover="./images/nav_icon_contact_hover.png">
 <!-- Contact start -->
             	联系我们板块
@@ -143,7 +143,7 @@
 	});
 	// 加载入口模块
 	seajs.use(['main', 'm/myswiper'], function(main, myswiper){
-		window.TW4MAIN = main.init();
+		window.TW4MAIN = main.init({initialSlide:2});
 
 		myswiper.done(function(){
 			//banner
