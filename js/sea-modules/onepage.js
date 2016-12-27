@@ -45,12 +45,12 @@ define(function(require, exports, module){
 
         //操作
         if(my.options.elem.length){
+            //记录单页配置
+            pagesOptions[idprefix+ my.options.index] = my.options;
             //单页元素
             $onepage = $('#'+idprefix+parseInt(my.options.index, 10));
             //创建
             my.create().back();
-            //记录单页配置
-            pagesOptions[idprefix+ my.options.index] = my.options;
         }
 
         //返回函数，使用在iframe子页面下调用。window.parent.onepage_back();
@@ -117,7 +117,7 @@ define(function(require, exports, module){
                 appendHtml(html, '');
                 //回调函数
                 loader.hide();
-                $callback[my.callbackName] && $callback[my.callbackName](my.callbackValue, my, pageCache[cacheKey]);
+                my.callback(cacheKey);
 
             }else{//缓存不存在
                 $.ajax({
@@ -133,7 +133,8 @@ define(function(require, exports, module){
                         //缓存
                         pageCache[cacheKey] = data.data;
                         //回调函数
-                        $callback[my.callbackName] && $callback[my.callbackName](my.callbackValue, my, pageCache[cacheKey]);
+                        my.callback(cacheKey);
+
                     }else{
                         appendHtml(html, data.msg);
                     }
@@ -180,7 +181,7 @@ define(function(require, exports, module){
                 }
             }
             //回调函数
-            $callback[my.callbackName] && $callback[my.callbackName](my.callbackValue, my, pageCache[cacheKey]);
+            my.callback(cacheKey);
         }
         return this;
     };
@@ -191,6 +192,16 @@ define(function(require, exports, module){
             $onepage = $('#'+id);
             this.options = pagesOptions[id];
         }
+    };
+    //回调函数
+    exports.callback = function(key){
+        var my = this;
+        if(!!key && pageCache.hasOwnProperty(key) && !!my.callbackName && !!my.callbackValue){
+            $callback[my.callbackName] && $callback[my.callbackName](my.callbackValue, my, pageCache[key]);
+            my.callbackName = null;
+            my.callbackValue = null;
+        }
+        return my;
     };
     //显示
     exports.show = function(){
