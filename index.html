@@ -142,7 +142,7 @@
 		}
 	});
 	// 加载入口模块
-	seajs.use(['main', 'm/myswiper'], function(main, myswiper){
+	seajs.use(['jquery', 'main', 'm/myswiper'], function($, main, myswiper){
 		window.TW4MAIN = main.init();
 
 		myswiper.done(function(){
