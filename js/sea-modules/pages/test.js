@@ -36,7 +36,7 @@ define(function(require, exports, module){
             </div>
             
             <!-- template end -->       
-        */}).toString().match(/[^]*\/\*([^]*)\*\/\}$/)[1];
+        */}).toString().match(/[^*]*\/\*([^*]*)\*\/\}$/)[1];
     };
     exports.display = function() {
         var my = this;
