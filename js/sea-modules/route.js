@@ -52,6 +52,7 @@ define(function(require, exports, module){
 			$.hash(name, null);
     	}
     };
-    exports.display = function(){
+    exports.back = function(){
+        history.go(-1);
     };
 });

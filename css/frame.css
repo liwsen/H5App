@@ -35,6 +35,10 @@ ol.noneStyle,
 .noneStyle ol{list-style:none; list-style-image:none;}
 
 .container{margin:0 auto;}
+
+/* 图标 */
+#header .icons-about{background-image: url('../images/icons_about.png')!important;}
+
 /* 主体内容 */
 .tw4Container{max-width:64rem;position: absolute;left:0;right:0;top:0;bottom:0;margin:0 auto;padding:4rem 0 5rem;background: #fff;
 	-webkit-transition: all .25s ease;
@@ -99,8 +103,8 @@ ol.noneStyle,
 .tw4Onepage .op_header .item{height:100%;padding:0 .8rem;font:1.4rem/4rem 'Microsoft Yahei';color:#fff;position: absolute;top:0;z-index: 2;}
 .tw4Onepage .op_header .item.left{left:0;}
 .tw4Onepage .op_header .item.right{right:0;}
-.tw4Onepage .op_header .item.btnBack{width:3rem;background: url(../images/head_icon_back2.png) no-repeat center center;}
-.tw4Onepage .op_header .item.btnMore{width:3.6rem;background: url(../images/head_icon_more2.png) no-repeat center center;}
+.tw4Onepage .op_header .item.btnBack{width:3rem;background: url(../images/head_icon_back.png) no-repeat center center;}
+.tw4Onepage .op_header .item.btnMore{width:3.6rem;background: url(../images/head_icon_more.png) no-repeat center center;}
 .tw4Onepage .op_header .item.title{font-size: 1.6rem;left:3.6rem;right:3.6rem;text-align: center;z-index: 1;}
 .tw4Onepage .op_content{overflow-x: hidden;overflow-y: auto;height: 100%;}
 .tw4Onepage .op_content iframe{margin:0;padding:0;width:100%;height:100%;border:none;}
@@ -133,8 +137,8 @@ ol.noneStyle,
 				background-size:2.6rem 2.6rem;
 	}
 	#header .item.btnMore{
-		-webkit-background-size:2.6rem;
-				background-size:2.6rem;
+		-webkit-background-size:1.8rem .4rem;
+				background-size:1.8rem .4rem;
 	}
 	#header .item.btnHome{width:3rem;
 		-webkit-background-size:1.6rem;
@@ -168,8 +172,8 @@ ol.noneStyle,
 				background-size:2.08rem 1.3rem;
 	}
 	#header .item.btnMore{padding: 0 .5rem;
-		-webkit-background-size:2.2rem;
-				background-size:2.2rem;
+		-webkit-background-size:1.3rem .3rem;
+				background-size:1.3rem .3rem;
 	}
 	#header .item.btnHome{width:2.4rem;
 		-webkit-background-size:1.2rem;

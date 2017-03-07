@@ -58,6 +58,7 @@ define(function(require, exports, module){
     exports.hide = function() {
         $container.css({left: 0, right: 0});
         $list.removeClass('show');
+        route.back();//路由后退一步
         return this;
     };
 

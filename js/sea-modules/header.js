@@ -10,8 +10,10 @@ define(function(require, exports, module){
         	options: 'home,menu',//this.allOptions
         	title: '标题',
             menuTitle: '',
+            menuClassName: '',
         	menuUrl: '',
             moreListTitle: '',//左侧列表标题
+            moreListClassName: '',//左侧列表样式名称
             moreListContent: '',//左侧列表Html
             customHeader: '',//自定义头部，该项不为空，options无效
         };
@@ -65,12 +67,12 @@ define(function(require, exports, module){
     //列表
     exports.menu = function(){
         var menuTitle = this.options.menuTitle || this.options.title;
-    	return '<span class="animated fadeInRight item right btnMenu" onepage="title:\''+ menuTitle +'\',type:2,content:\''+ this.options.menuUrl +'\'"></span>';
+    	return '<span class="animated fadeInRight item right btnMenu '+ this.options.menuClassName +'" onepage="title:\''+ menuTitle +'\',type:2,content:\''+ this.options.menuUrl +'\'"></span>';
     };
 
     //更多
     exports.more = function(){
-    	return '<span class="animated fadeInRight item right btnMore" morelist="title:\''+ this.options.moreListTitle +'\',content:\''+ this.options.moreListContent +'\'"></span>';
+    	return '<span class="animated fadeInRight item right btnMore '+ this.options.moreListClassName +'" morelist="title:\''+ this.options.moreListTitle +'\',content:\''+ this.options.moreListContent +'\'"></span>';
     };
 
     //事件

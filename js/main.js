@@ -90,7 +90,7 @@ define(function(require, exports, module){
             HEAD.init({elem: $header, customHeader: '.henderSearch'});
         //联系我们
         }else if(type === 3){
-            HEAD.init({elem: $header, title: '联系我们', options: 'title,home,menu'})
+            HEAD.init({elem: $header, title: '联系我们', options: 'title,home,menu', menuClassName: 'icons-about'})
         //帮助文档
         }else if(type === 4){
             HEAD.init({elem: $header, title: '帮助文档', options: 'title,home'});
