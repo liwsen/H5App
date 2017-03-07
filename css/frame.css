@@ -23,16 +23,17 @@ img{max-width: 100%;}
 
 .hide{display: none;}
 
-.noneStyle,
-.noneStyle dt,
-.noneStyle dd,
-.noneStyle p,
-.noneStyle ul,
-.noneStyle ol{ margin:0; padding:0;}
-ul.noneStyle,
-ol.noneStyle,
-.noneStyle ul,
-.noneStyle ol{list-style:none; list-style-image:none;}
+.unstyle,
+.unstyle dl,
+.unstyle dt,
+.unstyle dd,
+.unstyle p,
+.unstyle ul,
+.unstyle ol{ margin:0; padding:0;}
+ul.unstyle,
+ol.unstyle,
+.unstyle ul,
+.unstyle ol{list-style:none; list-style-image:none;}
 
 .container{margin:0 auto;}
 
@@ -55,6 +56,7 @@ ol.noneStyle,
 /* 主体页面分页 */
 .tw4Container .tw4PagePagination{width:100%;height:5rem;position: absolute;left:0;right:0;bottom:0;background-color: #ccc;z-index: 9;border-top: 1px solid #C7C7C7;background: #e9e9e9 url('../images/nav_bg.jpg') repeat-x center 0;-webkit-background-size: contain;background-size: contain;}
 .tw4Container .tw4PagePagination .paginationItem{float: left;text-align: center;height: 100%;border-radius: 0;background-color:transparent!important;position: relative;opacity: 1;}
+.tw4Container .tw4PagePagination .paginationItem i{display: block;font-size: 1rem;font-style: normal;width: 1.6rem;height: 1.6rem;line-height: 1.6rem;border-radius: 50%;background: #f00;color:#fff;position: absolute;right: 1.2rem;top:.2rem;}
 .tw4Container .tw4PagePagination .paginationItem span{display: block;padding:3rem 0 0;font-family: 'Microsoft Yahei';font-size: 1.4rem;}
 .tw4Container .tw4PagePagination .paginationItem img{position: absolute;left:0;right:0;top:0;bottom:1.9rem;margin:auto;}
 .tw4Container .tw4PagePagination .paginationItem img.hoverIcon{display: none;}
