@@ -67,7 +67,7 @@ ol.noneStyle,
 #header .item.btnMenu{width:4rem;background:url(../images/head_icon_list.png) no-repeat center center;}
 #header .item.btnMore{width:4rem;background:url(../images/head_icon_more.png) no-repeat center center;}
 #header .item.title{position: absolute;left:4rem;right:4rem;overflow-x: hidden;text-align: center;padding:0;}
-#header .item.title.logo{text-align: left;left:0;padding-left: 4.6rem;background:url(../images/logo2.png) no-repeat .8rem center;font-size: 1.8rem;}
+#header .item.title.logo{text-align: left;left:0;padding-left: 4.6rem;background:url(../images/logo.png) no-repeat .8rem center;font-size: 1.8rem;}
 
 /* 主体页面 */
 #tw4_pages{width: 100%;height: 100%;}
@@ -129,8 +129,8 @@ ol.noneStyle,
 		        transform: scale(.75);
 	}
 	#header .item.btnMenu{
-		-webkit-background-size:2.4rem 1.5rem;
-				background-size:2.4rem 1.5rem;
+		-webkit-background-size:2.6rem 2.6rem;
+				background-size:2.6rem 2.6rem;
 	}
 	#header .item.btnMore{
 		-webkit-background-size:2.6rem;
