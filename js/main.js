@@ -1,5 +1,6 @@
 define(function(require, exports, module) {
   var $ = require('jquery');
+  var fn = require('m/fn');
   var HEAD = require('m/header');
   var ONEPAGE = require('m/onepage');
   var $header = $('#header');
@@ -142,7 +143,7 @@ define(function(require, exports, module) {
         event.preventDefault();
         var str = $(this).attr('morelist');
         try {
-          var obj = (new Function("return {" + str + '}'))();
+          var obj = fn.toJson(str);
           require.async(['m/morelist'], function(moreList) {
             moreList.init(obj);
           });

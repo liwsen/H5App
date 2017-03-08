@@ -62,4 +62,25 @@ define(function(require, exports, module){
         arr.sort(function(){ return 0.5 - Math.random() })
         return arr;
     };
+
+    //所传的字符串参数转换为JSON对象
+    fn.toJson = function(str) {
+        var Eval = eval;
+        return Eval('({' + str + '})');
+    };
+
+    //滚动到底部回调
+    fn.scrollBottom = function(elem, cb) {
+        var min = 100;
+        if (!!elem) {
+            elem.addEventListener('scroll', function(event) {
+                if (this.scrollHeight - this.clientHeight > min && this.scrollHeight -
+                    this.scrollTop - this.clientHeight <
+                    min && typeof cb === 'function') {
+                    cb(event);
+                }
+            }, false);
+        }
+    };
+
 });
