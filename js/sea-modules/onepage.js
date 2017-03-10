@@ -64,6 +64,8 @@ define(function(require, exports, module) {
     var my = this;
     var html = [];
     var cacheKey;
+    var contentClassName = 'op_content';
+    var contentId = 'op_content_' + my.options.index;
 
     if ($onepage.length === 0) {
       $onepage = $('<div id="' + idprefix + my.options.index +
@@ -111,8 +113,8 @@ define(function(require, exports, module) {
     if (my.options.type === 3 && !!my.options.content) {
       loader.init();
       var appendHtml = function(html, content) {
-        html.push('<div class="op_content" id="op_content_' + my.options
-          .index + '">');
+        html.push('<div class="' + contentClassName + '" id="' +
+          contentId + '">');
         html.push(content);
         html.push('</div>');
         $onepage.html(html.join('')).find('.hide').removeClass('hide');
@@ -162,17 +164,22 @@ define(function(require, exports, module) {
       //非异步加载数据内容时
     } else {
       if (my.options.type === 2 && !!my.options.content) {
-        html.push('<div class="op_content" id="op_content_' + my.options.index +
+        html.push('<div class="' + contentClassName + '" id="' +
+          contentId +
           '" style="overflow:hidden;">');
         html.push('<iframe name="onepage_iframe_' + my.options.index +
           '" id="onepage_iframe_' + my.options.index + '" src="' + my.options
           .content + '"></iframe>');
       } else {
-        html.push('<div class="op_content" id="op_content_' + my.options.index +
+        html.push('<div class="' + contentClassName + '" id="' +
+          contentId +
           '">');
+        // 指定Demo元素内容
         if (/^[\.|#]\w+$/.test(my.options.content) && $(my.options.content)
           .length) {
           html.push($(my.options.content)[0].outerHTML);
+
+          // 直接填充静态内容
         } else {
           html.push(fn.htmlspecialchars_decode(my.options.content));
         }
@@ -211,10 +218,12 @@ define(function(require, exports, module) {
   //回调函数
   exports.callback = function(key) {
     var my = this;
-    if (!!key && pageCache.hasOwnProperty(key) && !!my.callbackName && !!
-      my.callbackValue) {
-      if ($callback[my.callbackName]) $callback[my.callbackName](my.callbackValue,
-        my, pageCache[key]);
+    if (my.callbackName && !!my.callbackValue && $callback[my.callbackName]) {
+      if (!!key && pageCache.hasOwnProperty(key)) {
+        $callback[my.callbackName](my.callbackValue, my, pageCache[key]);
+      } else {
+        $callback[my.callbackName](my.callbackValue, my, {});
+      }
       my.callbackName = null;
       my.callbackValue = null;
     }
