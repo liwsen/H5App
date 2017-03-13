@@ -28,7 +28,7 @@ define(function(require, exports, module) {
       customHeader: '', //自定义头部，该项不为空，title,moreBtn,moreListTitle,moreListContent无效
       ajaxData: {}, //type为3时，异步传递的数据
       callback: null, //回调函数，(输出名称:文件名)，中间用':'隔开，只有文件名时，输出名称默认为base
-      index: 0, //单页索引，标识第几个单页
+      index: 0 //单页索引，标识第几个单页
     };
     my.options = $.extend({}, DEFAULTS, options);
 
@@ -63,9 +63,9 @@ define(function(require, exports, module) {
   exports.create = function() {
     var my = this;
     var html = [];
-    var cacheKey;
     var contentClassName = 'op_content';
     var contentId = 'op_content_' + my.options.index;
+    var cacheKey;
 
     if ($onepage.length === 0) {
       $onepage = $('<div id="' + idprefix + my.options.index +
@@ -121,8 +121,7 @@ define(function(require, exports, module) {
         //是否显示
         if (my.options.show) my.show();
       };
-      cacheKey = hex_sha1(my.options.content + JSON.stringify(my.options
-        .ajaxData));
+      cacheKey = my.pageKey();
 
       //缓存页面
       if (pageCache.hasOwnProperty(cacheKey)) { //缓存存在
@@ -265,6 +264,10 @@ define(function(require, exports, module) {
   //数据加密
   exports.encrypted = function(u, p) {
     return hex_sha1(u + hex_sha1(p));
+  };
+  //数据加密
+  exports.pageKey = function() {
+    return hex_sha1(this.options.content + JSON.stringify(this.options.ajaxData));
   };
 
   //单页事件

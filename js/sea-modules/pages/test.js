@@ -39,7 +39,7 @@ define(function(require, exports, module) {
       /*##star##
                     <!-- template star -->
 
-                    <div class="test-block"
+                    <div class="test-block">
                         <h2>{{title}}</h2>
                         <hr />
                         <p>我是异步读取数据的页面，读取的是Pages下面test.php文件。Json传输。</p>
